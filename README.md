@@ -1,2 +1,2 @@
 # LevelPy
-Python-based map designer using products generated from DLTool 
+Python-based map designer using products generated from badger41's DLTool 
