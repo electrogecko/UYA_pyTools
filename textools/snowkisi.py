@@ -22,6 +22,11 @@
 #############################################################################
 
 
+from pathlib import Path
+import shutil
+import glob
+import os 
+import math
 
 metalframe = [
     '02D5\tex.0000.palette',
@@ -74,13 +79,26 @@ tie_lights = [ #19 20 28 29 31 32 44 53 64 92 93
 tie_sq_light = [ #  24 
     '1A59\tex.0001.palette', # think this is 75 square light
 ]
+tie_base_light = [
+    '1D43\tex.0002.palette', # FRONT OF BASE (WITH LIGHTS RED)
+    '1D4E\tex.0000.palette', # FRONT OF BASE (WITH LIGHTS BLUE)
+    '1D44\tex.0002.palette', #  BASE pANEL  (WITH LIGHTS RED)
+    '1D4D\tex.0002.palette', #  BASE pANEL  (WITH LIGHTS BLUE)
+]
 tie_base = [
     '1D42', # GAT HOLDER AND FIXTURE TO BASE
-    '1D43', # FRONT OF BASE (WITH LIGHTS RED)
-    '1D4E', # FRONT OF BASE (WITH LIGHTS BLUE)
-    '1D44', #  BASE pANEL  (WITH LIGHTS RED)
-    '1D4D', #  BASE pANEL  (WITH LIGHTS BLUE)
-    
+    '1D43\tex.0000.palette', # FRONT OF BASE (WITH LIGHTS RED)
+    '1D43\tex.0001.palette', # FRONT OF BASE (WITH LIGHTS RED)
+    '1D43\tex.0003.palette', # FRONT OF BASE (WITH LIGHTS RED)
+    '1D43\tex.0004.palette', # FRONT OF BASE (WITH LIGHTS RED)
+    '1D4E\tex.0001.palette', # FRONT OF BASE (WITH LIGHTS BLUE)
+    '1D4E\tex.0002.palette', # FRONT OF BASE (WITH LIGHTS BLUE)
+    '1D4E\tex.0003.palette', # FRONT OF BASE (WITH LIGHTS BLUE)
+    '1D44\tex.0000.palette', #  BASE pANEL  (WITH LIGHTS RED)
+    '1D44\tex.0001.palette', #  BASE pANEL  (WITH LIGHTS RED)
+    '1D4D\tex.0000.palette', #  BASE pANEL  (WITH LIGHTS BLUE)
+    '1D4D\tex.0001.palette', #  BASE pANEL  (WITH LIGHTS BLUE)
+    #'1D4D\tex.0002.palette', #  BASE pANEL  (WITH LIGHTS BLUE) this is the light part 
     '1D45', #  BASE BOTOM BLOCK
     '1D46', # BASE SIDE PANEL
     '1D47', # BASE CORNER PANEL
@@ -111,12 +129,13 @@ tie_brown = [
     '16C3\tex.0002.palette', # this one looks grungy. could be made frosty
     '16C3\tex.0003.palette',
     '16C3\tex.0004.palette',
+    '16C3\tex.0005.palette',
     '16C3\tex.0006.palette',
     '16C3\tex.0007.palette',
     '16C3\tex.0008.palette',
     '16C3\tex.0009.palette',
     '16C3\tex.0010.palette',
-    '16C3\tex.0004.palette', # this was 14 disabling......
+    #'16C3\tex.0004.palette', # this was 14 disabling......
     '16C4', # NEXT TO STIRP LIGHT
     '16CD', # HOVERHSIP WALL
     '16CE', # HOVERSHIP WALL
@@ -157,11 +176,13 @@ tie_brown = [
     '1729', # HOVER PIECE HAS DARKER RIBBED PANEL 
     '1729', # HOVER PIECE ANTENNA JETS DOWN OUT 
     '1729', # HOVER PIECE TOP
+   ############## '1721', # Hover piece jutting outward 
+    '172A', # Hover piece side out 
+    '172B', # Hover piece side out 
     '172C', # HOVER PIECE WITH BLACK PANELS
     '172D', # HOVER PIECE DOWN
     '172E', # HOVER PIECE DOWN
     '172F', # HOVER PIECE DOWN
-
     '1C89\tex.0000.palette', # LIGHTS AT NIP NODES RED WITH ANTENNA BROWN
     '1C89\tex.0001.palette', # LIGHTS AT NIP NODES RED WITH ANTENNA BROWN
     '1C89\tex.0004.palette', # LIGHTS AT NIP NODES RED WITH ANTENNA BROWN
@@ -171,7 +192,10 @@ tie_brown = [
     '1731\tex.0004.palette', # Hovership with yellow and blue lights
     '1731\tex.0005.palette', # Hovership with yellow and blue lights
 ]
-
+tie_grungy = [
+    '16C3\tex.0002.palette', # this one looks grungy. could be made frosty
+    '16EC\tex.0005.palette', # ANTENNA STUB NEAR BASE (HAS TWO STRIPS LIGHTS?) !grungy
+]
 ter_lights = [
     24,
     33,
@@ -180,7 +204,7 @@ ter_lights = [
     50, #blu gradient 
     51 # blue half half 
 ]
-ter_sq_lights = [ 44, 47 ] # like 25, 28
+ter_sq_lights = [ 44  ] # like 25, 28 # 47 is the logo near nip top, but it has brown surrounding. 
 ter_sq_brownthing = [ 21, 45 ] # like 31,32
 ter_grassdirt = [
     41,
@@ -232,10 +256,52 @@ ter_metal  = [
     35, 
     37,
     46,
-    48
+    48,
+
+    47  # moving this over because it is better here (nip sign) 
 ]
 
 
+moby_brown = [
+    '1A63/tex.0000.palette',
+    '1A63/tex.0001.palette',
+    '1A63/tex.0003.palette',
+
+    '15CA/tex.0000.palette',
+    '15CA/tex.0001.palette',
+   
+    '1AD6/tex.0000.palette',
+    '1AD6/tex.0003.palette',
+    '1AD6/tex.0004.palette',
+    '1AD6/tex.0005.palette',
+    '1AD6/tex.0007.palette',
+    '1AD6/tex.0008.palette',
+    '1AD6/tex.0009.palette',
+    
+]
+moby_lights = [
+    '1A63/tex.0002.palette'
+]
+moby_crank = [
+    '1A27/tex.0000.palette'
+    '1A27/tex.0001.palette'
+    '1A27/tex.0002.palette'
+    '1A27/tex.0003.palette'
+]
+ship = [
+    '107E/tex.0000.palette'
+]
+turbo = [
+    '107C/tex.0000.palette'
+]
+ranger = [
+    '109E/tex.0000.palette'
+    '109F/tex.0000.palette'
+]
+jumppad = [
+    '10C4/tex.0000.palette'
+    '10C4/tex.0001.palette'
+]
 #################%%%%%%%%%%%%%%
 
 
@@ -300,17 +366,6 @@ def process_palette_files(base_dir, input_list):
     
     return output_list
 
-
-tie_metal = process_palette_files(source_directory,tie_metal)
-tie_metal_dark = process_palette_files(source_directory,tie_metal_dark)
-tie_lights = process_palette_files(source_directory,tie_lights)
-tie_sq_light = process_palette_files(source_directory,tie_sq_light)
-tie_base = process_palette_files(source_directory,tie_base)
-tie_grass = process_palette_files(source_directory,tie_grass)
-tie_dirt = process_palette_files(source_directory,tie_dirt)
-tie_brown = process_palette_files(source_directory,tie_brown)
-###################%%%%%%%%%%%%%%
-
 #import filetools
 def darken_colors(folder, pal_list, dimR=0.9, dimG=0.5, dimB=0.7, dimA=1):
     print('Darkening: ' + str(len(pal_list)) + ' files')
@@ -337,6 +392,38 @@ def darken_colors(folder, pal_list, dimR=0.9, dimG=0.5, dimB=0.7, dimA=1):
             # Write the modified byte data back to the file
             with open(file_path, "wb") as file:
                 file.write(modified_byte_data)
+
+
+def darken_exponential(folder, pal_list, dimR=0.9, dimG=0.5, dimB=0.7, dimA=1):
+    print('Darkening: ' + str(len(pal_list)) + ' files')
+    for file_name in pal_list:
+        file_path = os.path.join(folder, file_name)
+
+        # Read the bytes from the file
+        with open(file_path, "rb") as file:
+            byte_data = file.read()
+
+            # Split the byte data into groups of 4 (R, G, B, A)
+            groups = [byte_data[i:i+4] for i in range(0, len(byte_data), 4)]
+
+            # Modify RGBA values unless they are all zero
+            def adjust_color(value, dim_factor):
+                """Adjust color value using exponential darkening."""
+                return int(value * math.pow(dim_factor, value / 255))
+
+            modified_groups = [
+                group if group == b'\x00\x00\x00\x00' else 
+                bytes([
+                    adjust_color(group[0], dimR),
+                    adjust_color(group[1], dimG),
+                    adjust_color(group[2], dimB),
+                    int(group[3] * dimA)
+                ])
+                for group in groups
+            ]
+
+            # Concatenate the modified groups 
+
 
 def brighten_lights(folder, pal_list, alpha=255):
     print('Brightening: ' + str(len(pal_list)) + ' files')
@@ -404,66 +491,7 @@ def make_snowy(folder, pal_list):
             # Write the modified byte data back to the file
             with open(file_path, "wb") as file:
                 file.write(modified_byte_data)
-
-
-
-
-
-
-###############
-# Terrain 
-s = 0.7
-import shutil
-import glob
-import os
-dest_base = r'H:/ps2/packer/kisiv2/'
-stock_base = r'H:/ps2/packer/kisiv2_stock/'
-source_directory =  os.path.join(stock_base, 'assets/terrain')
-destination_directory = os.path.join(dest_base, 'assets/terrain')
-file_pattern = '*.palette'
-files_to_copy = glob.glob(source_directory + '/' + file_pattern)
-for file_path in files_to_copy:
-    shutil.copy(file_path, destination_directory)
-
-terrfolder = os.path.join(folder_base, 'assets/terrain')
-# darken_colors(ter_lights, dimR = 0.5, dimG = 0.6, dimB = 0.6, dimA = 1) # lights
-# darken_colors(ter_sq_lights, dimR = 0.5, dimG = 0.6, dimB = 0.6, dimA = 1) # square lights
-darken_colors(destination_directory,ter_sq_brownthing, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # brown thing
-#darken_colors(terrfolder,ter_grassdirt, dimR = 0.6*g, dimG = 0.6*g, dimB = 0.6*g, dimA = 1) # grass/dirt
-make_snowy(destination_directory,ter_grassdirt)
-darken_colors(destination_directory,ter_blusish, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # blueish
-darken_colors(destination_directory,ter_metal, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # metal
-
-
-# shrub
-g = 0.9
-import shutil
-import glob
-dest_base = r'H:/ps2/packer/kisiv2/'
-stock_base = r'H:/ps2/packer/kisiv2_stock/'
-source_directory =  os.path.join(stock_base, 'assets/shrub')
-destination_directory = os.path.join(dest_base, 'assets/shrub')
-file_pattern = '*.palette'
-files_to_copy = glob.glob(source_directory + '/' + file_pattern)
-for file_path in files_to_copy:
-    shutil.copy(file_path, destination_directory)
-
-# New packer nests shrub folders 
-shrub = [os.path.relpath(file, os.path.join(dest_base, 'assets', 'shrub')) 
-         for file in glob.glob(os.path.join(dest_base, 'assets', 'shrub', '*', '*.palette'))]
-
-# Define shrubfolder as before
-shrubfolder = os.path.join(dest_base, 'assets', 'shrub')
-
-# Call the make_snowy function with the updated shrub list
-make_snowy(shrubfolder, shrub)
-
-
-from pathlib import Path
-import shutil
-import glob
-import os 
-
+                
 def copy_recursive(source_base, dest_base, file_pattern):
     # Walk through each directory in the source base
     for root, dirs, files in os.walk(source_base):
@@ -478,20 +506,66 @@ def copy_recursive(source_base, dest_base, file_pattern):
             # Copy each file to the destination directory
             shutil.copy(file, dest_dir)
 
-# Define your base paths
-dest_base = r'H:/ps2/packer/kisiv2/'
-stock_base = r'H:/ps2/packer/kisiv2_stock/'
+
+# Terrain 
+s = 0.7
+source_directory =  os.path.join(stock_base, 'assets/terrain')
+destination_directory = os.path.join(dest_base, 'assets/terrain')
+
+# Copy over backups 
+copy_recursive(source_directory, destination_directory, '*.palette')
+
+# darken_colors(ter_lights, dimR = 0.5, dimG = 0.6, dimB = 0.6, dimA = 1) # lights
+# darken_colors(ter_sq_lights, dimR = 0.5, dimG = 0.6, dimB = 0.6, dimA = 1) # square lights
+darken_colors(destination_directory,ter_sq_brownthing, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # brown thing
+#darken_colors(terrfolder,ter_grassdirt, dimR = 0.6*g, dimG = 0.6*g, dimB = 0.6*g, dimA = 1) # grass/dirt
+make_snowy(destination_directory,ter_grassdirt)
+darken_colors(destination_directory,ter_blusish, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # blueish
+darken_colors(destination_directory,ter_metal, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # metal
+
+
+
+# shrub
+g = 0.9
+source_directory =  os.path.join(stock_base, 'assets/shrub')
+destination_directory = os.path.join(dest_base, 'assets/shrub')
+
+# Perform the recursive copy
+copy_recursive(source_directory, destination_directory, '*.palette')
+
+# New packer nests shrub folders 
+shrub = [os.path.relpath(file, os.path.join(dest_base, 'assets', 'shrub')) 
+         for file in glob.glob(os.path.join(dest_base, 'assets', 'shrub', '*', '*.palette'))]
+
+# Define shrubfolder as before
+shrubfolder = os.path.join(dest_base, 'assets', 'shrub')
+
+# Call the make_snowy function with the updated shrub list
+make_snowy(shrubfolder, shrub)
+s = 0.95
+#darken_colors(shrubfolder,shrub, dimR = 0.6*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) 
+
+
 
 # Define source and destination directories for this example
 source_directory = os.path.join(stock_base, 'assets/tie')
 destination_directory = os.path.join(dest_base, 'assets/tie')
 
-# File pattern to search for
-file_pattern = '*.palette'
+tie_metal = process_palette_files(source_directory,tie_metal)
+tie_metal_dark = process_palette_files(source_directory,tie_metal_dark)
+tie_lights = process_palette_files(source_directory,tie_lights)
+tie_sq_light = process_palette_files(source_directory,tie_sq_light)
+tie_base = process_palette_files(source_directory,tie_base)
+tie_grass = process_palette_files(source_directory,tie_grass)
+tie_dirt = process_palette_files(source_directory,tie_dirt)
+tie_brown = process_palette_files(source_directory,tie_brown)
+tie_grungy = process_palette_files(source_directory,tie_grungy)
+tie_base_light = process_palette_files(source_directory,tie_base_light)
+
+###################%%%%%%%%%%%%%%
 
 # Perform the recursive copy
-copy_recursive(source_directory, destination_directory, file_pattern)
-
+copy_recursive(source_directory, destination_directory, '*.palette')
 
 # Step 3: Call the make_snowy function
 #make_snowy(str(tiefolder), tie_brown_with_dirs)
@@ -507,7 +581,15 @@ darken_colors(destination_directory, tie_metal_dark, dimR = 0.7*s, dimG = 0.8*s,
 make_snowy(destination_directory, tie_grass)
 make_snowy(destination_directory, tie_dirt)
 
+#make_snowy(destination_directory, tie_grungy) # this doesnt look good 
+
+sb=0.85
+darken_colors(destination_directory, tie_base, dimR = 0.5*sb, dimG = 0.6*sb, dimB = 0.6*sb, dimA = 1) # Darken the brown 
+
+#darken_colors(destination_directory, tie_dirt, dimR = 0.7*g, dimG = 0.8*g, dimB = 0.8*g, dimA = 1) # Darken the dirt
+
 #for light in tie_lights:
     # brighten_lights(tiefolder,light,254)
-brighten_lights(tiefolder,tie_lights,254)
+brighten_lights(destination_directory,tie_base_light,230)
+brighten_lights(destination_directory,tie_lights,254)
 print("All tie tex files processed successfully.")
