@@ -593,3 +593,38 @@ darken_colors(destination_directory, tie_base, dimR = 0.5*sb, dimG = 0.6*sb, dim
 brighten_lights(destination_directory,tie_base_light,230)
 brighten_lights(destination_directory,tie_lights,254)
 print("All tie tex files processed successfully.")
+
+# Moby 
+
+# Define source and destination directories for this example
+source_directory = os.path.join(stock_base, 'assets/moby')
+destination_directory = os.path.join(dest_base, 'assets/moby')
+
+moby_brown = process_palette_files(source_directory,moby_brown)
+moby_lights = process_palette_files(source_directory,moby_lights)
+
+moby_crank =  process_palette_files(source_directory,moby_crank)
+ship = process_palette_files(source_directory,ship)
+turbo =  process_palette_files(source_directory,turbo)
+ranger =  process_palette_files(source_directory,ranger)
+jumppad =  process_palette_files(source_directory,jumppad)
+
+# Perform the recursive copy
+copy_recursive(source_directory, destination_directory, '*.palette')
+
+# Step 3: Call the make_snowy function
+#make_snowy(str(tiefolder), tie_brown_with_dirs)
+s = 0.7
+r = 0.9
+b = 1
+g = 0.95
+darken_colors(destination_directory, moby_brown, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+
+darken_colors(destination_directory, moby_crank, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+darken_colors(destination_directory, ship, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+darken_colors(destination_directory, turbo, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+darken_colors(destination_directory, ranger, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+darken_colors(destination_directory, jumppad, dimR = 0.5*s, dimG = 0.6*s, dimB = 0.6*s, dimA = 1) # Darken the brown 
+
+brighten_lights(destination_directory,moby_lights,230)
+print("All moby tex files processed successfully.")
