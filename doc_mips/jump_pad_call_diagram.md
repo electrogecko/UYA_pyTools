@@ -1,21 +1,32 @@
-JumpPadFunction_004F50xx 
- ├─> NameGuess_004F8D58  (if f12 > 0)
- └─> [various local branches / labels in the same function]
+JumpPadFunction_004F50xx
+
+├─> NameGuess_004F8D58 (if f12 > 0)
+
+└─> \[various local branches / labels in the same function\]
 
 LargeRoutine_004FE888
- ├─> pos_004F89A8, pos_004F8668, pos_004F8C58, pos_004F8928, etc.
- └─> [Eventually calls] NameGuess_004F8D58 (with f12 = -0.35)
-     pos_004F8D58 is also reached in other states if [a0+0x1A06]==0
+
+├─> pos_004F89A8, pos_004F8668, pos_004F8C58, pos_004F8928, etc.
+
+└─> \[Eventually calls\] NameGuess_004F8D58 (with f12 = -0.35)
+
+pos_004F8D58 is also reached in other states if \[a0+0x1A06\]==0
 
 LargeRoutine_004F74CC
- ├─> Subcalls like pos_004F8A48
- ├─> pos_004F75E8
- └─> pos_004F7894 (return)
+
+├─> Subcalls like pos_004F8A48
+
+├─> pos_004F75E8
+
+└─> pos_004F7894 (return)
 
 LargeRoutine_004F8F30
- ├─> pos_004F8F9C, pos_004F8FCC, etc. 
- ├─> pos_00453060, pos_00453250
- └─> final vector math
+
+├─> pos_004F8F9C, pos_004F8FCC, etc.
+
+├─> pos_00453060, pos_00453250
+
+└─> final vector math
 
 **1\. Overview Table**
 
