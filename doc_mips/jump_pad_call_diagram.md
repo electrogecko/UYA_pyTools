@@ -1,50 +1,56 @@
-JumpPadFunction_004F50xx
+*FYI, offsets based on: PAL, LEVEL 44, *
+and 
+- modified INCREASING WAD[0] SECTOR COUNT: 0x1C8E => 0x1CFC
+- update: toc: <0x002C3810> with wad[0] off:<0xBA524800> sectorCount:<0x1CFC>
+- update: toc: <0x002C3818> with wad[1] off:<0xBB3A2800> sectorCount:<0x0363>
+- update: toc: <0x002C3820> with wad[2] off:<0xBB554000> sectorCount:<0x020C>
+- update: toc: <0x002C3828> with wad[3] off:<0xBB65A000> sectorCount:<0x0007>
 
-├─> NameGuess_004F8D58 (if f12 > 0)
+## Master Cross‐Reference & Call Table
+- **Address / Label**: Where the function/code block starts.  
+- **Brief Description**: Overview of what it does.  
+- **Calls/Branches To**: Other functions/labels it calls or branches to.  
+- **Called By**: If we know which code calls this function/block.
 
-└─> \[various local branches / labels in the same function\]
+| **Address / Label**             | **Brief Description**                                                                                                                                                                                                                                                           | **Calls / Branches To**                                                                                                                                                                                                                                                                                                                                                                  | **Called By**                                                                                                                                                                                                  |
+|:--------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **`0x00512DBC`** *(dispatcher)* | **High‐level or “master” state handler** that decides which specialized function to call based on `[s1 + 0x19E5]`, `[s1 + 0x19E4]`, etc. One of its branches calls `0x004F4D00` (inside the big jump function). After returning, it may call other state‐specific routines.                                            | - Calls **`0x004F4CF8`** (by `jal` near `0x004F4D00`) <br/> - Also calls or branches to other functions like `pos_004F3B90`, `pos_00514ED0`, `pos_00512200`, etc., depending on the state.                                                                                                                                                                                                | *( N.a. / Obfuscation )                                                                                  |
+| **`0x004F4CF8`** *(general jump)* | **General jump logic** function (ends around `0x004F5310`). Includes normal jump, special jump states, and the **jump pad** logic. Uses repeated checks of `[s1 + 0x19E4]`, `[s1 + 0x14AC]`, `[s1 + 0x14BC]`, `[s1 + 0x1440]`, `[s1 + 0x2F0]`, etc. Also calls sub‐functions like `pos_004F8928`, `pos_004F8A48`, `pos_004F8DF0`. The “jump pad” snippet is near `0x004F50xx`. | - **Calls** **`NameGuess_004F8D58`** if certain conditions (e.g. `f12 > 0`) <br/> - Also calls `pos_004F8928`, `pos_004F8DF0`, `pos_004F8A48`, etc.                                                                                                                                                                                                                                                                                  | - **Called by** **`0x00512DBC`** (which does `jal 0x004F4D00`).                                                                                                                                                               |
+| **(Inside 0x004F4CF8)**<br/>**`JumpPadSnippet_0x004F50xx`** | The **jump pad** math portion within `0x004F4CF8`. Reads/writes `[+0x14B8..0x14C4]`, `[+0x1518..0x1530]`, does `sqrt(...)`, and accumulates into `[+0x14C0]`. Optionally calls `NameGuess_004F8D58`.                                                                                                              | - If `f12 > 0`, calls **`NameGuess_004F8D58`** <br/> - Branches to local labels like `pos_004F5118`, `pos_004F5150`, etc.                                                                                                                                                                                                                                                                                                         | - **Part of** `0x004F4CF8` (no separate caller; it’s embedded in the general jump function).                                                                                                                                     |
+| **`NameGuess_004F8D58`**        | Small helper function that checks `[a0 + 0x1A06]`. If `!= 0`, returns immediately. Else, copies 16 bytes from `(a2)` to `(a1)` and adds `f12` to the float at `(a1 + 8)`. Used in the jump pad code (with `f12 > 0`) and in friction/velocity logic (with `f12 = -0.35`) elsewhere.                                        | *(None—just stack cleanup and returns.)*                                                                                                                                                                                                                                                                                                                                                                                         | - **Called by**: <br/> &emsp;• The jump pad snippet in `0x004F4CF8` <br/> &emsp;• `0x004FE888` (with `f12=-0.35`) <br/> &emsp;• `0x004F8F30` <br/> &emsp;• Possibly other places (like `pos_004FEAF0` in that same big routine). |
+| **`0x004F74CC`** *(large routine)* | Large function referencing `[s0 + 0x1A06]`, `[s0 + 0x2DE]`, `[s0 + 0x2AC]`. Possibly more general movement/flags. It calls subroutines like `pos_00453150`, `pos_004F8A48`. Not clearly shown to call the jump pad snippet or `0x004F4CF8` in your snippets, but is part of the same engine and might handle other states.                                             | - Calls `pos_00453150` and `pos_004F8A48` in some branches <br/> - Has local labels `pos_004F75E8`, `pos_004F7894`                                                                                                                                                                                                                                                                                                               | *(Caller unknown in these snippets. Possibly part of a different movement or collision path.)                                                                                                                         |
+| **`0x004F8F30`** *(large routine)* | Another big function referencing `[a0 + 0x1A06]`, checking if it’s `1` or `2`. Uses vector ops (`lqc2, vsub, sqc2`). In certain paths, **calls `NameGuess_004F8D58`**. Possibly part of separate movement/collision or camera code.                                                                                                                          | - Calls **`NameGuess_004F8D58`** in sub‐labels `pos_004F8F9C`, `pos_004F8FCC`                                                                                                                                                                                                                                                                                                                                                     | *(Caller unknown. Likely another update or movement routine.)                                                                                                                                      |
+| **`0x004FE888`** *(large routine)* | Very large per‐frame or movement update referencing `[0x19E6, 0x19E4, 0x2DE]` etc. Eventually calls **`NameGuess_004F8D58`** with `f12 = -0.35` (sub‐label `pos_004FEAF0`). Also calls `pos_004F8668`, `pos_004F89A8`, `pos_004F8C58`, `pos_00452FF8`, etc. Possibly includes friction/damping steps.                                                                | - Calls **`NameGuess_004F8D58`** at label `pos_004FEAF0` <br/> - Also calls `pos_004F8668`, `pos_004F89A8`, `pos_004F8C58`, `pos_004F8928`, etc.                                                                                                                                                                                                                                                                                  | *(Caller unknown; presumably part of a main player or per‐frame update loop.)                                                                                                                                        |
+| **`pos_004FEAF0`** *(sub‐label)*  | Sub‐label inside **`0x004FE888`**. Specifically loads `f12 = -0.35` (0xBEB33333) before calling `NameGuess_004F8D58`. Typically used for friction or negative velocity.                                                                                                                                                 | - Calls **`NameGuess_004F8D58`**                                                                                                                                                                                                                                                                                                                                                                                                 | *(Part of `0x004FE888`; not a standalone function.)                                                                                                                                                                 |
 
-LargeRoutine_004FE888
+---
 
-├─> pos_004F89A8, pos_004F8668, pos_004F8C58, pos_004F8928, etc.
+## 
+```none
+        +------------------------------------------------------+
+        | 0x00512DBC : Master State/Jump Dispatcher            |
+        |  - checks [s1+0x19E5 / 0x19E4], calls -> 0x004F4D00   |
+        |    (which is within 0x004F4CF8)                      |
+        +------------------------------^-----------------------+
+                                       |
+                                       v
++-----------------------------------------------------------------+
+| 0x004F4CF8 : General Jump Logic                                 |
+|   - Normal jump, special jump states, jump pad snippet at ~0x50xx
+|   - Checks [s1+0x19E4], etc. Calls subfuncs: 0x004F8A48, etc.    |
+|   - jump pad snippet calls -> NameGuess_004F8D58 if needed      |
++-----------------------------------------------------------------+
 
-└─> \[Eventually calls\] NameGuess_004F8D58 (with f12 = -0.35)
+                        +-------------------------+
+                        | NameGuess_004F8D58     |
+                        |   (16-byte copy + add) |
+                        |   if [a0+0x1A06]==0     |
+                        +-----------^-------------+
+         Called by ---->            |           
+          0x004F4CF8               | <--- 0x004F8F30 
+                                    | <--- 0x004FE888 (f12=-0.35)
+```
 
-pos_004F8D58 is also reached in other states if \[a0+0x1A06\]==0
-
-LargeRoutine_004F74CC
-
-├─> Subcalls like pos_004F8A48
-
-├─> pos_004F75E8
-
-└─> pos_004F7894 (return)
-
-LargeRoutine_004F8F30
-
-├─> pos_004F8F9C, pos_004F8FCC, etc.
-
-├─> pos_00453060, pos_00453250
-
-└─> final vector math
-
-**1\. Overview Table**
-
-| **Address / Label** | **Snippet or Block** | **Calls / Branches To** | **Brief Explanation** |
-| --- | --- | --- | --- |
-| **0x004F50xx** | _Jump Pad Calculation Block_ (initial snippet) | \- pos_004F8D58 (if f12 > 0.0) | The primary “jump pad” or “thrust” calculation routine. Checks various floats/shorts around offsets 0x14B8..0x14C4, 0x1518..1530. Also checks \[0x2F0\] (timers) and \[0x14AD\] (byte flag). Computes final thrust via sqrt(...), accumulates in \[0x14C0\], sometimes calls NameGuess_004F8D58. Has branches named pos_004F5118, pos_004F5150, etc. |
-| **pos_004F5118** | Inside the Jump Pad code | Jumps to pos_004F5150 in some conditions | Subsection that does a partial thrust calculation: doubles a float, multiplies by \[0x1530\], takes sqrt, subtracts \[0x14C0\] & \[0x14C4\]. Updates \[0x14C0\]. |
-| **pos_004F5150** | Inside the Jump Pad code | Falls through to snippet checking f12 > 0 | Another label that checks if f12 > 0, then calls pos_004F8D58, and resets \[0x14C0\] to 0.0 while adding its old value to \[0x14C4\]. Also checks \[0x14AD\]. |
-| **pos_004F519C** | Inside the Jump Pad code | Goes to pos_004F530C if \[s1 + 0x14AD\]=0 | A small “flag check” section. If the byte at 0x14AD is zero, it branches away to pos_004F530C. This code is partial and was not fully mapped out. |
-| **0x004F74CC** | Large function referencing \[s0 + 0x1A06\], etc. | Branches to pos_004F75E8, pos_004F7894 | Checks various states/flags in the player struct (\[0x1A06\], \[0x2DE\], \[0x2AC\]). If \[1A06\] != 0, it skips. Possibly applies movement logic or calls other subroutines. |
-| **pos_004F75E8** | Sub‐label in the 0x004F74CC region | Possibly calls pos_004F89A8 | Code that sets or clears \[0x2D4(s0)\], checks a float at \[0x2AC(s0)\]. Calls pos_004F8A48 or branches out. Contains additional sub‐logic for movement or states. |
-| **0x004F8D58** | _NameGuess_004F8D58 Helper_ | Returns to the caller if \[a0+0x1A06\]!=0 | A small helper function. Copies 16 bytes from (a2) to (a1) if \[a0 + 0x1A06\]==0, then adds f12 to the float at offset +8 of (a1). Called by the jump pad code with f12=some positive or negative. |
-| **pos_004F8DD8** | Return sequence for 0x004F8D58 | —   | The tail end of that helper. Just a stack cleanup and jr ra. |
-| **0x004F8F30** | Another large function referencing \[a0+0x1A06\] | Branch logic to pos_004F8F9C, pos_004F8FCC, pos_004F9008 | Checks if \[a0+0x1A06\] == 1, does different copying or calls to movement code. Uses vector instructions (lq, sq, lqc2, sqc2). Possibly an extended movement/transform routine. |
-| **pos_004F8F9C** | Sub‐label in 0x004F8F30 | Calls pos_00453250, pos_00453060, etc. | If \[a0+0x1A06\]==1, it triggers multiple sub‐calls that update camera or movement data, then branches to final logic. |
-| **pos_004F8FCC** | Sub‐label in 0x004F8F30 | Calls pos_00453060 | Another path for state=2, calls a function with f12=f00. Then a VU operation for a position difference. |
-| **0x004FE888** | Large routine referencing \[a0+0xFB0\], \[0x19E6\], \[0x19E4\] etc. | Calls pos_004F89A8, pos_00452FF8, pos_004F8668, pos_004F8928, and eventually pos_004F8D58 | Very big “update loop” for the player struct. Checks flags like \[0x19E4\]/0x19E6, sets \[a0+0xFB0\] = 0. Possibly a main “per‐frame” logic function. Eventually calls the small helper pos_004F8D58 with negative or positive float. |
-| **pos_004FEA4C** | Sub‐label in 0x004FE888 region | Jumps to pos_004FEAA4 or calls pos_004F89A8, pos_004F8668, pos_004F8C58 | Possibly does advanced checks on f20, f21 floats, triggers some camera or collision checks. Then sets up for the next step. |
-| **pos_004FEAA4** | Sub‐label in 0x004FE888 region | Calls pos_004F8928 and eventually pos_004F8D58 | Another step in the update pipeline: does vector addition with vf01, vf02, loads \[s0+0x2530\] or \[sp\]. Typical movement math, then calls the “copy+add” function. |
-| **pos_004FEAF0** | Sub‐label from 0x004FE888 block | Calls pos_004F8D58 with f12=0xBEB33333 | The well‐noted negative float (-0.35). After the call, more logic about \[0x2524(s0)\] or references to 0x0026XXXX. Possibly final friction or damping in the same frame. |
-| **pos_004FEB7C** | The final return inside 0x004FE888 | Restores registers, does jr ra | The cleanup & exit for that giant routine. |
+- **`0x004F74CC`** is another large function referencing `[1A06, 2DE, etc.]`, not shown to directly call the jump pad or 0x004F4CF8 in these snippets.  
+- **`0x004F8F30`** also calls `NameGuess_004F8D58` in some branches.  
+- **`0x004FE888`** is a big update loop that calls `NameGuess_004F8D58` (with friction?), especially at sub‐label `pos_004FEAF0`.
