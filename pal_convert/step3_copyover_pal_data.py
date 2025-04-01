@@ -9,7 +9,7 @@ import subprocess
 base_folder = r'H:\ps2\fix_pal'
 
 # Dry-run flag: if True, only print the operations, do not perform them.
-DRY_RUN = False
+DRY_RUN = True
 output_scan_dir = ''  # todo, move this to a uya folder 
 
 pal_folder = os.path.join(base_folder, 'pal')
