@@ -25,7 +25,7 @@ uint32_t flagCombo1 = 0x80743030;   // 30 54 80 7F (guessing 0x80743030 masked?)
 
 // Padding or timers?
 uint32_t zero1 = 0x00000000;
-uint32_t field1 = 0x002C3030;       // 30 30 2C 00 // This is def a pointer...
+uint32_t field1 = 0x002C3030;       // 30 30 2C 00 // This is def a pointer...(set and modified during and after camera pan)
 uint32_t field2 = 0x00000100;
 
 // --- Fields below were observed to change camera behavior ---
