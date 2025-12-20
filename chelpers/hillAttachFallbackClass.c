@@ -1,4 +1,5 @@
-
+// at the top 
+//static void hillAttachFallbackClass(Moby* moby);
 
     //hillAttachFallbackClass(moby);
 
