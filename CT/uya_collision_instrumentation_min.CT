@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable CheatEngineTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>100</ID>
+      <Description>"UYA NTSC Hoven - Player ptr root @ 0x202496B0"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>202496B0</Address>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>101</ID>
+          <Description>"player* raw (unmapped)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>102</ID>
+          <Description>"cheatX"</Description>
+          <VariableType>Float</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20002538</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>103</ID>
+          <Description>"cheatY"</Description>
+          <VariableType>Float</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20002540</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>104</ID>
+          <Description>"cheatZ"</Description>
+          <VariableType>Float</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>2000253C</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>105</ID>
+          <Description>"invisible (0=visible, 1=hidden)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20001A0A</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>106</ID>
+          <Description>"isVisible (derived: invisible==0)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20001A0A</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>107</ID>
+          <Description>"state (raw obfuscated byte)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200019E4</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>108</ID>
+          <Description>"subState (raw obfuscated byte)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200019E5</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>109</ID>
+          <Description>"stateType (raw obfuscated byte)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200019E6</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>110</ID>
+          <Description>"hitPoints (raw obfuscated byte)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20002476</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>111</ID>
+          <Description>"playerType"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>2000251B</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>112</ID>
+          <Description>"pMoby ptr (unmapped)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20002524</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>113</ID>
+          <Description>"pWhoHitMe ptr (unmapped)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>2000245C</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>114</ID>
+          <Description>"lastDamagedMeOwnerUID"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200024CC</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>115</ID>
+          <Description>"lastDamagedMeGadgetId"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200024D0</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>116</ID>
+          <Description>"lastDamagedMeHp"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>200024D4</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>117</ID>
+          <Description>"lastDeathWasSuicide"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>Byte</VariableType>
+          <Address>202496B0</Address>
+          <Offsets><Offset>20002501</Offset></Offsets>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>120</ID>
+          <Description>"[Hotspots]"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>121</ID>
+              <Description>"index (short)"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>2 Bytes</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000370</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>122</ID>
+              <Description>"water"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000379</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>123</ID>
+              <Description>"icewater"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>2000037A</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>124</ID>
+              <Description>"groundType"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>2000037B</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>125</ID>
+              <Description>"deathsand"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000374</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>126</ID>
+              <Description>"lava"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000375</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>127</ID>
+              <Description>"noStand"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000378</Offset></Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>130</ID>
+          <Description>"[Timers]"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>202496B0</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>131</ID>
+              <Description>"resurrectWait (raw obfuscated byte)"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>2000031C</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>132</ID>
+              <Description>"collOff (raw obfuscated byte)"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000313</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>133</ID>
+              <Description>"noDeathTimer (short)"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>2 Bytes</VariableType>
+              <Address>202496B0</Address>
+              <Offsets><Offset>20000344</Offset></Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+
+    <CheatEntry>
+      <ID>200</ID>
+      <Description>"Collision output (vaCollOutput NTSC Hoven) @ 0x2025BC40"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>2025BC40</Address>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>201</ID>
+          <Description>"call_cnt"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2025BC50</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>202</ID>
+          <Description>"damage_next"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2025BC54</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>203</ID>
+          <Description>"pMoby (hit moby ptr)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2025BC58</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>204</ID>
+          <Description>"poly"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2025BC5C</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>205</ID>
+          <Description>"ip.x"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC60</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>206</ID>
+          <Description>"ip.y"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC64</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>207</ID>
+          <Description>"ip.z"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC68</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>208</ID>
+          <Description>"normal.x"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC80</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>209</ID>
+          <Description>"normal.y"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC84</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>210</ID>
+          <Description>"normal.z"</Description>
+          <VariableType>Float</VariableType>
+          <Address>2025BC88</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>220</ID>
+          <Description>"[Hit pMoby decode] (from 0x2025BC58 ptr)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2025BC58</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>221</ID>
+              <Description>"state"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000020</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>222</ID>
+              <Description>"mClass"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000022</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>223</ID>
+              <Description>"pClass ptr"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>4 Bytes</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000024</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>224</ID>
+              <Description>"drawn"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>Byte</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000031</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>225</ID>
+              <Description>"modeBits"</Description>
+              <ShowAsHex>1</ShowAsHex>
+              <VariableType>2 Bytes</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000034</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>226</ID>
+              <Description>"position.x"</Description>
+              <VariableType>Float</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000010</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>227</ID>
+              <Description>"position.y"</Description>
+              <VariableType>Float</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000014</Offset></Offsets>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>228</ID>
+              <Description>"position.z"</Description>
+              <VariableType>Float</VariableType>
+              <Address>2025BC58</Address>
+              <Offsets><Offset>20000018</Offset></Offsets>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+
+    <CheatEntry>
+      <ID>300</ID>
+      <Description>"Breakpoint / hook targets (NTSC Hoven mapped code addrs)"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>20400000</Address>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>301</ID>
+          <Description>"EXEC BP target: CollHotspot"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>20452038</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>302</ID>
+          <Description>"EXEC BP target: CollLine_Fix"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2044DD50</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>303</ID>
+          <Description>"EXEC BP target: playerSetPlayerState"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>20520348</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>304</ID>
+          <Description>"EXEC BP target: playerRespawn"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>204F9BF8</Address>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>305</ID>
+          <Description>"EXEC BP target: HurtPlayer"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>2050CD40</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+
+    <CheatEntry>
+      <ID>400</ID>
+      <Description>"Constants (AA symbols)"</Description>
+      <ShowAsHex>1</ShowAsHex>
+      <VariableType>4 Bytes</VariableType>
+      <Address>202496B0</Address>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>401</ID>
+          <Description>"WAIT_FOR_RESURRECT (dec 144 / hex 0x90)"</Description>
+          <ShowAsHex>1</ShowAsHex>
+          <VariableType>4 Bytes</VariableType>
+          <Address>uya_const_wait_for_resurrect</Address>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+
+    <CheatEntry>
+      <ID>500</ID>
+      <Description>"[AA] Register instrumentation symbols (no patch)"</Description>
+      <Active>1</Active>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+alloc(uya_instr_syms,100)
+registersymbol(uya_player_ptr_root)
+registersymbol(uya_colloutput_root)
+registersymbol(uya_fn_collhotspot)
+registersymbol(uya_fn_collline_fix)
+registersymbol(uya_fn_setplayerstate)
+registersymbol(uya_fn_playerrespawn)
+registersymbol(uya_fn_hurtplayer)
+registersymbol(uya_const_wait_for_resurrect)
+
+uya_instr_syms:
+uya_player_ptr_root:
+dd 202496B0
+
+uya_colloutput_root:
+dd 2025BC40
+
+uya_fn_collhotspot:
+dd 20452038
+
+uya_fn_collline_fix:
+dd 2044DD50
+
+uya_fn_setplayerstate:
+dd 20520348
+
+uya_fn_playerrespawn:
+dd 204F9BF8
+
+uya_fn_hurtplayer:
+dd 2050CD40
+
+uya_const_wait_for_resurrect:
+dd 00000090
+
+[DISABLE]
+unregistersymbol(uya_player_ptr_root)
+unregistersymbol(uya_colloutput_root)
+unregistersymbol(uya_fn_collhotspot)
+unregistersymbol(uya_fn_collline_fix)
+unregistersymbol(uya_fn_setplayerstate)
+unregistersymbol(uya_fn_playerrespawn)
+unregistersymbol(uya_fn_hurtplayer)
+unregistersymbol(uya_const_wait_for_resurrect)
+dealloc(uya_instr_syms)
+</AssemblerScript>
+    </CheatEntry>
+
+    <CheatEntry>
+      <ID>600</ID>
+      <Description>"[Lua] Decode state + resurrectWait (Hoven NTSC)"</Description>
+      <Active>1</Active>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>[ENABLE]
+{$lua}
+if syntaxcheck then return 'assert(true)' end
+
+local bxor, band, rshift
+if bit32 then
+  bxor = bit32.bxor
+  band = bit32.band
+  rshift = bit32.rshift
+elseif bit then
+  bxor = bit.bxor
+  band = bit.band
+  rshift = bit.rshift
+else
+  local floor = math.floor
+  local function u32(n) return n % 4294967296 end
+  function band(a, b)
+    a = u32(a); b = u32(b)
+    local res, bitv = 0, 1
+    for _ = 0, 31 do
+      local aa = a % 2
+      local bb = b % 2
+      if aa == 1 and bb == 1 then res = res + bitv end
+      a = floor(a / 2)
+      b = floor(b / 2)
+      bitv = bitv * 2
+    end
+    return u32(res)
+  end
+  function bxor(a, b)
+    a = u32(a); b = u32(b)
+    local res, bitv = 0, 1
+    for _ = 0, 31 do
+      local aa = a % 2
+      local bb = b % 2
+      if aa ~= bb then res = res + bitv end
+      a = floor(a / 2)
+      b = floor(b / 2)
+      bitv = bitv * 2
+    end
+    return u32(res)
+  end
+  function rshift(a, n)
+    return floor(u32(a) / (2 ^ n))
+  end
+end
+
+local function mapAddr(a)
+  if a &gt;= 0x20000000 then return a end
+  return a + 0x20000000
+end
+
+local function readU8Unmapped(a)
+  local t = readBytes(mapAddr(a), 1, true)
+  if not t or t[1] == nil then return 0 end
+  return t[1]
+end
+
+local RAND_STATE = 0x003BF5A1
+local RAND_WEAPON = 0x003A97C1
+
+local function deobf(srcUnmapped, mode)
+  local i = srcUnmapped
+  local iv = readU8Unmapped(i)
+  if mode == 0 and iv == 0 then return 0 end
+
+  local maxv, step, mult, rand
+  if mode == 0 then
+    maxv = 0x28; step = 5; mult = 0xFF; rand = RAND_STATE
+  elseif mode == 1 then
+    maxv = 0x18; step = 3; mult = 0xD1; rand = RAND_WEAPON
+  elseif mode == 2 then
+    maxv = 0x18; step = 3; mult = 0xFF; rand = RAND_STATE
+  else
+    return 0
+  end
+
+  local data = {}
+  local n = 0
+  local idx = 1
+  local baseOff = band(i - iv, 7)
+  while n &lt; maxv do
+    local offset = baseOff + n
+    local src = rand + iv + band(offset, 7) * mult
+    data[idx] = readU8Unmapped(src)
+    idx = idx + 1
+    n = n + step
+  end
+
+  local addr = data[1] + data[2]*0x100 + data[3]*0x10000 + data[4]*0x1000000
+  local val  = data[5] + data[6]*0x100 + data[7]*0x10000 + data[8]*0x1000000
+  local resAddr = bxor(val, bxor(addr, i))
+  local resVal = rshift(resAddr, 16)
+
+  if mode == 0 then return band(resAddr, 0xFFFFFFFF) end
+  if mode == 1 then return band(resVal, 0xFF) end
+  return band(resVal, 0xFFFFFFFF)
+end
+
+if _G.uyaDecMin and _G.uyaDecMin.timer then _G.uyaDecMin.timer.destroy() end
+if _G.uyaDecMin and _G.uyaDecMin.base then
+  pcall(unregisterSymbol, 'uya_dec_min_base')
+  pcall(unregisterSymbol, 'uya_dec_min_state')
+  pcall(unregisterSymbol, 'uya_dec_min_reswait')
+  pcall(unregisterSymbol, 'uya_dec_min_hotspot_index')
+  pcall(unregisterSymbol, 'uya_dec_min_isvisible')
+  pcall(unregisterSymbol, 'uya_dec_min_wait_const')
+  pcall(unregisterSymbol, 'uya_dec_min_heartbeat')
+end
+
+local base = allocateMemory(0x200)
+registerSymbol('uya_dec_min_base', base)
+registerSymbol('uya_dec_min_state', base + 0x00)
+registerSymbol('uya_dec_min_reswait', base + 0x04)
+registerSymbol('uya_dec_min_hotspot_index', base + 0x08)
+registerSymbol('uya_dec_min_isvisible', base + 0x0C)
+registerSymbol('uya_dec_min_wait_const', base + 0x10)
+registerSymbol('uya_dec_min_heartbeat', base + 0x1FC)
+
+local t = createTimer(nil, false)
+t.Interval = 33
+t.OnTimer = function()
+  local p = readInteger(0x202496B0)
+  if not p or p == 0 then return end
+
+  writeInteger(base + 0x1FC, 0xC0DEC0DE)
+  writeInteger(base + 0x00, deobf(p + 0x19E4, 0))
+  writeInteger(base + 0x04, deobf(p + 0x031C, 2))
+  writeSmallInteger(base + 0x08, readSmallInteger(mapAddr(p + 0x0370)) or 0)
+
+  local inv = readU8Unmapped(p + 0x1A0A)
+  writeInteger(base + 0x0C, (inv == 0) and 1 or 0)
+  writeInteger(base + 0x10, 0x90)
+end
+t.Enabled = true
+
+_G.uyaDecMin = { timer = t, base = base }
+return 'assert(true)'
+[DISABLE]
+{$lua}
+if syntaxcheck then return 'assert(true)' end
+if _G.uyaDecMin and _G.uyaDecMin.timer then _G.uyaDecMin.timer.destroy() end
+if _G.uyaDecMin and _G.uyaDecMin.base then
+  pcall(unregisterSymbol, 'uya_dec_min_base')
+  pcall(unregisterSymbol, 'uya_dec_min_state')
+  pcall(unregisterSymbol, 'uya_dec_min_reswait')
+  pcall(unregisterSymbol, 'uya_dec_min_hotspot_index')
+  pcall(unregisterSymbol, 'uya_dec_min_isvisible')
+  pcall(unregisterSymbol, 'uya_dec_min_wait_const')
+  pcall(unregisterSymbol, 'uya_dec_min_heartbeat')
+end
+_G.uyaDecMin = nil
+return 'assert(true)'
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry><ID>601</ID><Description>"decoded state"</Description><ShowAsHex>1</ShowAsHex><VariableType>4 Bytes</VariableType><Address>uya_dec_min_state</Address></CheatEntry>
+        <CheatEntry><ID>602</ID><Description>"decoded resurrectWait timer"</Description><ShowAsHex>1</ShowAsHex><VariableType>4 Bytes</VariableType><Address>uya_dec_min_reswait</Address></CheatEntry>
+        <CheatEntry><ID>603</ID><Description>"hotspot index (short)"</Description><ShowAsHex>1</ShowAsHex><VariableType>2 Bytes</VariableType><Address>uya_dec_min_hotspot_index</Address></CheatEntry>
+        <CheatEntry><ID>604</ID><Description>"isVisible (1 visible / 0 hidden)"</Description><ShowAsHex>1</ShowAsHex><VariableType>4 Bytes</VariableType><Address>uya_dec_min_isvisible</Address></CheatEntry>
+        <CheatEntry><ID>605</ID><Description>"WAIT_FOR_RESURRECT const"</Description><ShowAsHex>1</ShowAsHex><VariableType>4 Bytes</VariableType><Address>uya_dec_min_wait_const</Address></CheatEntry>
+        <CheatEntry><ID>606</ID><Description>"decoder heartbeat (0xC0DEC0DE)"</Description><ShowAsHex>1</ShowAsHex><VariableType>4 Bytes</VariableType><Address>uya_dec_min_heartbeat</Address></CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+</CheatTable>
