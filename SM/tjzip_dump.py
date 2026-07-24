@@ -7,16 +7,23 @@ Implements the byte-oriented TJZIP decoder used
   - TJZIP_ParseDictionaryCode__FPPUcT0PUi
   - TJZIP_Decompress__FPUcT0UiPUiT0PFPUc_PUc
 
-This tool focuses on dumping the fully-decompressed payload from a single-file
-"HIG!" WAD (e.g. 17.WAD). It does not attempt post-processing/fixups.
+This tool dumps the fully-decompressed payload from a single-file "HIG!" WAD.
+It handles the observed WAD variants, including the ETC/merged WADs (GLOBAL /
+MULTIPLAYER / SINGLEPLAYER). It does not attempt post-processing/fixups.
 
 Usage examples:
   python3 tjzip_dump.py /path/to/17.WAD -o out.bin
-  python3 tjzip_dump.py /path/to/17.WAD -o out.bin --verify /path/to/known_out.bin
+  python3 tjzip_dump.py /path/to/GLOBAL.WAD -o out.bin --verify /path/to/known_out.bin
 
 Notes:
+  - The TJZIP bitstream start is derived from the header layout (see
+    parse_hig_wad). It is NOT the u32 at +0x04 -- that field is 0 on the ETC
+    WADs and 0x10C0 on per-level WADs, and was never a header size.
+  - Decompression stops when it has emitted `decomp_size` (from +0x3C) bytes,
+    not when the input is exhausted; streams are padded past the last token.
   - CRC computation is optional. If you have a CRC table dump, you can wire it
-    in via --crc-table (space-delimited bytes or raw 1024-byte table).
+    in via --crc-table (ASCII hex byte pairs or a raw 1024-byte table). The
+    result matches the CRC32 stored at header +0x34.
 """
 
 from __future__ import annotations
@@ -38,14 +45,49 @@ def _u32le(buf: bytes, off: int) -> int:
     return struct.unpack_from("<I", buf, off)[0]
 
 
+# Layout of a HIG! WAD header (confirmed on both console variants):
+#   0x00  char[4]  "HIG!"
+#   0x04  u32      NOT the header size. It is 0x10C0 for per-level ".mb.wad"
+#                  files and 0x00000000 for the merged ETC WADs (GLOBAL /
+#                  MULTIPLAYER / SINGLEPLAYER). Do not use it to locate data.
+#   0x34  u32      CRC32 of the decompressed payload
+#   0x38  u32      always 6 (format/version tag)
+#   0x3C  u32      decompressed size
+#   0x40  u32      compressed size (approx; not needed to decode)
+#   0x44  char[]   NUL-terminated source ".conf" path (e.g. C:\HIG\...\*.conf)
+#   ...   0x00     padding to a 0x40 alignment boundary
+# The TJZIP bitstream begins immediately after that padding. For every retail
+# WAD this lands at a fixed 0xC0, but we compute it from the path so
+# unusually long paths still work.
+HEADER_ALIGN = 0x40
+HEADER_MIN = 0xC0
+CONF_PATH_OFF = 0x44
+
+
 def parse_hig_wad(blob: bytes, *, base_off: int = 0) -> Tuple[int, int, int]:
-    """Return (header_size, comp_off, decomp_size) for a HIG! wad at base_off."""
+    """Return (header_size, comp_off, decomp_size) for a HIG! wad at base_off.
+
+    header_size is the byte offset (relative to base_off) at which the TJZIP
+    bitstream starts. It is derived from the layout, NOT read from +0x04 (that
+    field is 0 on ETC/merged WADs and 0x10C0 on level WADs -- neither is a size).
+    """
     if blob[base_off:base_off + 4] != HEADER_MAGIC:
         raise TJZIPError("Not a HIG! WAD at given offset")
-    header_size = _u32le(blob, base_off + 4)
-    if header_size < 0x40 or header_size > len(blob) - base_off:
-        raise TJZIPError(f"Unreasonable header_size=0x{header_size:x}")
+
+    # Header = fixed fields + NUL-terminated .conf path, padded to HEADER_ALIGN.
+    path_end = blob.find(b"\x00", base_off + CONF_PATH_OFF)
+    if path_end == -1:
+        raise TJZIPError("No NUL terminator after conf path field")
+    header_size = ((path_end - base_off) + HEADER_ALIGN) & ~(HEADER_ALIGN - 1)
+    if header_size < HEADER_MIN:
+        header_size = HEADER_MIN
+    if header_size > len(blob) - base_off:
+        raise TJZIPError(f"Computed header_size=0x{header_size:x} past EOF")
+
     decomp_size = _u32le(blob, base_off + 0x3C)
+    if decomp_size == 0 or decomp_size > 0x80000000:
+        raise TJZIPError(f"Suspicious decomp_size=0x{decomp_size:x}")
+
     comp_off = base_off + header_size
     if comp_off > len(blob):
         raise TJZIPError("Compressed offset past EOF")
@@ -57,7 +99,9 @@ def load_crc_table(path: Path) -> List[int]:
 
     Accepts either:
       - raw 1024 bytes (little-endian u32 table)
-      - ASCII space/newline delimited bytes (0-255). If ASCII, length must be 1024.
+      - ASCII whitespace-delimited hex byte pairs (e.g. "00 00 00 00 96 30 07
+        77 ...", the standard CRC32 table in little-endian u32 order). Must
+        decode to 1024 bytes. A "0x" prefix on each token is tolerated.
     """
     data = path.read_bytes()
     # Try raw
@@ -68,8 +112,13 @@ def load_crc_table(path: Path) -> List[int]:
         txt = data.decode("ascii", errors="strict")
     except Exception as e:
         raise TJZIPError(f"Unsupported CRC table format: {e}")
-    parts = [p for p in txt.replace("\n", " ").replace("\r", " ").split(" ") if p]
-    b = bytes(int(p, 0) & 0xFF for p in parts)
+    parts = txt.split()
+    # Tokens are hex byte pairs without a prefix ("07", "96", ...); int(p, 0)
+    # would reject those, so parse as base 16 (stripping an optional 0x).
+    try:
+        b = bytes(int(p[2:] if p.lower().startswith("0x") else p, 16) & 0xFF for p in parts)
+    except ValueError as e:
+        raise TJZIPError(f"ASCII CRC table must be hex byte pairs: {e}")
     if len(b) != 1024:
         raise TJZIPError(f"ASCII CRC table must decode to 1024 bytes, got {len(b)}")
     return list(struct.unpack("<256I", b))
@@ -209,13 +258,26 @@ def tjzip_decompress(comp: bytes, decomp_size: int,
     if limit_out is not None and outpos >= limit_out:
         return bytes(out[history_size:history_size + limit_out]), (~crc) & 0xFFFFFFFF if crc_table else 0
 
-    # Main loop: parse dict, then optional literal/raw
+    # Main loop: parse dict, then optional literal/raw.
+    #
+    # Termination is driven by the OUTPUT length (decomp_size), not by input
+    # exhaustion. The original TJZIP_Decompress is told how many bytes to emit
+    # and stops as soon as it has produced them; the compressed stream is padded
+    # to an alignment boundary, so a few unused input bytes remain after the last
+    # real token. Looping on `inpos < len(comp)` instead would parse that padding
+    # as one extra (garbage) token and underrun -- the "Raw block: input
+    # underrun" failure seen on about half the WADs.
     comp_len = len(comp)
-    while inpos < comp_len:
+    out_end = history_size + decomp_size
+    while outpos < out_end and inpos < comp_len:
         inpos, outpos, crc, post = tjzip_parse_dict(comp, inpos, out, outpos, crc=crc, crc_table=crc_table)
 
         if limit_out is not None and outpos >= limit_out:
             return bytes(out[history_size:history_size + limit_out]), (~crc) & 0xFFFFFFFF if crc_table else 0
+
+        # Output complete: stop before consuming any trailing block/padding.
+        if outpos >= out_end:
+            break
 
         # IMPORTANT: per TJZIP_Decompress, post==3 means "no trailing bytes" (neither raw nor literal).
         if post == 0:
