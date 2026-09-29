@@ -1,0 +1,17 @@
+# Materials excluded from export (one per line; '#' comments allowed).
+# Names match the exporter's Blender-style material names: the texture name,
+# with ".001"/".002" for duplicate names, and "Material_<index>" for untextured
+# (flat) materials. Passed via:  assemble_level.py --exclude-list exclude_list.txt
+barn01.001
+greenBloom
+barn03.001
+swingtarget
+Material_26
+truck01
+truckBlue01
+truckRed01
+redbloom01
+bluebloom01
+Material_37
+SuckCannon_Lo2
+cowCrate

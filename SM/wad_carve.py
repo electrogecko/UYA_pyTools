@@ -7,7 +7,7 @@ SIGNATURES = {
     b"COL ": "collision",
     b"TIE ": "tie",
     b"BOG ": "bog",
-    b"MIG.00.1PSP": "mig",
+    bytes.fromhex("4D49472E30302E31505350"): "mig",
     b"SHRB": "shrub",
     b"MP": "mp_misc",
 }
